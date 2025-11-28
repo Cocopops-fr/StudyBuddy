@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Study Buddy - Matching</title>
+</head>
+<body>
+<h2>Study Buddy</h2>
+
+<div th:if="${noProfiles}">
+  <h2>Plus de profils disponibles 🎉</h2>
+</div>
+
+<div th:unless="${noProfiles}">
+
+
+
+
+    <p><strong>ID:</strong> <span th:text="${profile.studentId}"></span></p>
+    <p><strong>Name:</strong> <span th:text="${profile.fullname}"></span></p>
+    <p><strong>Skills à travailler:</strong> <span th:text="${profile.skills}"></span></p>
+    <p><strong>Campus:</strong> <span th:text="${profile.campus}"></span></p>
+
+    <form th:action="@{/like}" method="post" style="display:inline">
+        <input type="hidden" name="userId" th:value="${currentStudent}" />
+        <input type="hidden" name="id" th:value="${profile.studentId}"/>
+        <button type="submit">J'aime</button>
+    </form>
+
+    <form th:action="@{/dislike}" method="post" style="display:inline">
+        <input type="hidden" name="userId" th:value="${currentStudent}" />
+        <input type="hidden" name="id" th:value="${profile.studentId}"/>
+        <button type="submit">J'aime pas</button>
+    </form>
+</div>
+
+
+<div th:if="${profile == null}">
+    <p>No profile found in database.</p>
+</div>
+
+</body>
+</html>

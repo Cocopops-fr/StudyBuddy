@@ -1,0 +1,22 @@
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Mes matchs</title>
+</head>
+<body>
+<h2>Mes matchs</h2>
+
+<ul>
+    <li th:each="m : ${matches}">
+        <span th:text="${m.fullname}">Nom</span>
+        
+    </li>
+</ul>
+
+<form th:action="@{/profile}" method="get">
+    <input type="hidden" name="userId" th:value="${currentStudent}">
+    <button type="submit">Continuer à swiper</button>
+</form>
+
+</body>
+</html>

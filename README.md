@@ -22,7 +22,7 @@ Les dépendances communes:
 - *service/* pour la logique métier.
 
 ### Dépendances propres :
- - H2 Database : pour éviter d'avoir full mysql à gérer dès le début + très léger (2mb de ram)
+ - H2 Database : pour éviter d'avoir full mysql à gérer dès le début + très léger (2mb de ram) = valider le wiring Spring/JPA sans dépendance externe
   - Spring Boot DevTools : pour le hot reload
 
 

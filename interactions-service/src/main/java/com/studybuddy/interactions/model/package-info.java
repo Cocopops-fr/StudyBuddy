@@ -1,0 +1,1 @@
+package com.studybuddy.interactions.model;

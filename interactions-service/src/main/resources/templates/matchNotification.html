@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>🎉 Nouveau match !</title>
+</head>
+<body>
+    <h2>🎉 Félicitations ! 🎉</h2>
+    <p>
+        Vous avez matché avec 
+        <strong th:text="${match.fullname}">Nom de l'étudiant</strong> !
+    </p>
+
+    <p>
+        Allez voir ce match dans l’onglet des matchs, ou continuez à parcourir d’autres profils !
+    </p>
+
+    <form th:action="@{/matches}" method="get">
+        <input type="hidden" name="userId" th:value="${userId}">
+        <button type="submit">Voir mes matchs 💌</button>
+    </form>
+
+    <form th:action="@{/profile}" method="get">
+        <input type="hidden" name="userId" th:value="${userId}">
+        <button type="submit">Continuer à parcourir 🔁</button>
+    </form>
+</body>
+</html>
