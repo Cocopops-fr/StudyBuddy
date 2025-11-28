@@ -10,22 +10,67 @@ Les dépendances communes:
 ## User-service
  microservice pour gérer les données utilisateurs
  
- com.studybuddy.users
- 
+**com.studybuddy.users**
+
  ### Structure :
-- model/ pour les entités JPA.
+- *model/* pour les entités JPA.
 
-- repository/ pour les interfaces JpaRepository.
+- *repository/* pour les interfaces JpaRepository.
 
-- controller/ pour les endpoints REST.
+- *controller/* pour les endpoints REST.
 
-- service/ pour la logique métier.
+- *service/* pour la logique métier.
 
- #### Dépendances propres :
- - H2 Database : pour éviter d'avoir full mysql à gérer dès le début
+### Dépendances propres :
+ - H2 Database : pour éviter d'avoir full mysql à gérer dès le début + très léger (2mb de ram)
 
 
-#### Paramètres :
+### Paramètres :
+- server.port=8082
+
+
+## Interactions-service
+ microservice pour gérer le matching
+ 
+**com.studybuddy.interactions**
+
+ ### Structure : - idem par défaut.
+- *model/* pour les entités JPA.
+
+- *repository/* pour les interfaces JpaRepository.
+
+- *controller/* pour les endpoints REST.
+
+- *service/* pour la logique métier.
+
+### Dépendances propres :
+ - H2 Database : pour éviter d'avoir full mysql à gérer dès le début + très léger (2mb de ram)
+
+
+### Paramètres :
 - server.port=8081
+
+## Webapp (Thymemeaf)
+ microservice pour gérer l'affichage, page web, etc.
+ 
+**com.studybuddy.webapp**
+
+ ### Structure :
+- *model/* pour les entités JPA.
+
+- *repository/* pour les interfaces JpaRepository.
+
+- *controller/* pour les endpoints REST.
+
+- *service/* pour la logique métier.
+
+### Dépendances propres :
+ - H2 Database : pour éviter d'avoir full mysql à gérer dès le début + très léger (2mb de ram)
+
+
+### Paramètres :
+- server.port=8081
+
+
 
 
