@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gérer les Utilisateurs</title>
+</head>
+<body>
+    <h1>Gestion des Utilisateurs</h1>
+    <p>Choisissez une action pour le microservice "Gestion des Utilisateurs".</p>
+
+    <h2>Actions Disponibles</h2>
+    <ul>
+        <li>
+            <a th:href="@{/register}">Créer un nouveau compte</a>
+        </li>
+        <li>
+            <a th:href="@{/login}">Se connecter</a>
+        </li>
+        <li>
+            <a th:href="@{/users/search}">Rechercher / Modifier un utilisateur</a>
+        </li>
+    </ul>
+
+    <p><a th:href="@{/home}">Retour au Menu Principal</a></p>
+</body>
+</html>

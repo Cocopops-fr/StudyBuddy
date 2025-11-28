@@ -1,0 +1,135 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon profil - StudyBuddy</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        .actions {
+            margin-left: auto;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .actions form {
+            margin: 0;
+        }
+
+        button {
+            padding: 0.4rem 0.8rem;
+            cursor: pointer;
+        }
+
+        button.delete {
+            border: 1px solid #c00;
+        }
+
+        main {
+            margin-top: 2rem;
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+
+        dl {
+            display: grid;
+            grid-template-columns: 180px 1fr;
+            row-gap: 0.4rem;
+            column-gap: 1rem;
+            margin: 0;
+        }
+
+        dt {
+            font-weight: 600;
+        }
+
+        dd {
+            margin: 0;
+        }
+
+        .muted {
+            color: #777;
+            font-size: 0.9rem;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Mon profil</h1>
+
+    <div class="actions">
+        <!-- Modifier -->
+        <a th:href="@{/profile/edit}">
+            <button type="button">Modifier mes informations</button>
+        </a>
+
+        <!-- Déconnexion -->
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">Se déconnecter</button>
+        </form>
+
+        <!-- Suppression de compte -->
+        <form th:action="@{/profile/delete}" method="post"
+              onsubmit="return confirm('Voulez-vous vraiment supprimer votre compte ? Cette action est définitive.');">
+            <button type="submit" class="delete">Supprimer mon compte</button>
+        </form>
+    </div>
+</header>
+
+<main>
+    <div class="card" th:if="${user != null}">
+        <dl>
+            <dt>Prénom</dt>
+            <dd th:text="${user.firstName}">Prénom</dd>
+
+            <dt>Nom</dt>
+            <dd th:text="${user.lastName}">Nom</dd>
+
+            <dt>Date de naissance</dt>
+            <dd th:text="${user.birthDate}">2000-01-01</dd>
+
+            <dt>Université</dt>
+            <dd th:text="${user.university}">Université</dd>
+
+            <dt>Email</dt>
+            <dd th:text="${user.email}">email@example.com</dd>
+
+            <dt>Genre</dt>
+            <dd th:text="${user.gender}">MALE</dd>
+
+            <dt>Compte créé le</dt>
+            <dd th:text="${user.createdAt}">2025-11-21T16:26:07Z</dd>
+        </dl>
+
+        <p class="muted">
+            Si les informations ne sont pas correctes, vous pouvez les modifier ou supprimer votre compte.
+        </p>
+    </div>
+
+    <div th:if="${user == null}">
+        <p>Impossible de charger le profil. Veuillez vous reconnecter.</p>
+    </div>
+</main>
+
+</body>
+</html>

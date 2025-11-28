@@ -1,0 +1,111 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>StudyBuddy - Connexion / Inscription</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+        h1 {
+            margin-bottom: 1.5rem;
+        }
+        .container {
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+        }
+        .card {
+            border: 1px solid #ccc;
+            border-radius: .75rem;
+            padding: 1rem 1.5rem;
+            flex: 1;
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        label {
+            display: block;
+            margin-top: .5rem;
+        }
+        input, select {
+            width: 100%;
+            padding: .25rem .4rem;
+            margin-top: .15rem;
+        }
+        button {
+            margin-top: 1rem;
+            padding: .4rem .8rem;
+            cursor: pointer;
+        }
+        .error {
+            color: darkred;
+            margin-top: .5rem;
+        }
+    </style>
+</head>
+<body>
+
+<h1>StudyBuddy</h1>
+
+<div class="container">
+
+    <!-- FORMULAIRE DE CONNEXION -->
+    <div class="card">
+        <h2>Connexion</h2>
+
+        <form th:action="@{/login}" th:object="${loginForm}" method="post">
+            <label for="login-email">Adresse email</label>
+            <input id="login-email" type="email" th:field="*{email}"/>
+
+            <label for="login-password">Mot de passe</label>
+            <input id="login-password" type="password" th:field="*{password}"/>
+
+            <button type="submit">Se connecter</button>
+
+            <p th:if="${loginError}" th:text="${loginError}" class="error"></p>
+        </form>
+    </div>
+
+    <!-- FORMULAIRE DE CREATION DE COMPTE -->
+    <div class="card">
+        <h2>Créer un compte</h2>
+
+        <form th:action="@{/register}" th:object="${registerForm}" method="post">
+            <label for="reg-password">Mot de passe</label>
+            <input id="reg-password" type="password" th:field="*{password}"/>
+
+            <label for="reg-firstName">Prénom</label>
+            <input id="reg-firstName" type="text" th:field="*{firstName}"/>
+
+            <label for="reg-lastName">Nom</label>
+            <input id="reg-lastName" type="text" th:field="*{lastName}"/>
+
+            <label for="reg-birthDate">Date de naissance</label>
+            <input id="reg-birthDate" type="date" th:field="*{birthDate}"/>
+
+            <label for="reg-university">Université</label>
+            <input id="reg-university" type="text" th:field="*{university}"/>
+
+            <label for="reg-email">Email</label>
+            <input id="reg-email" type="email" th:field="*{email}"/>
+
+            <label for="reg-gender">Genre</label>
+            <select id="reg-gender" th:field="*{gender}">
+                <option value="">-- Sélectionner --</option>
+                <option value="MALE">Homme</option>
+                <option value="FEMALE">Femme</option>
+            </select>
+
+            <button type="submit">Créer mon compte</button>
+
+            <p th:if="${registerError}" th:text="${registerError}" class="error"></p>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

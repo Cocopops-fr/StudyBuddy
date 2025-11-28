@@ -1,0 +1,85 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Modifier mon profil - StudyBuddy</title>
+  <style>
+    body {
+      font-family: system-ui, sans-serif;
+      max-width: 900px;
+      margin: 2rem auto;
+    }
+    h1 {
+      margin-bottom: 1rem;
+    }
+    form {
+      border: 1px solid #ccc;
+      border-radius: 0.75rem;
+      padding: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-top: .5rem;
+    }
+    input, select {
+      width: 100%;
+      padding: .25rem .4rem;
+      margin-top: .15rem;
+    }
+    .buttons {
+      margin-top: 1rem;
+      display: flex;
+      gap: 0.5rem;
+    }
+    button {
+      padding: .4rem .8rem;
+      cursor: pointer;
+    }
+    .error {
+      color: darkred;
+      margin-top: .5rem;
+    }
+    a.button-link {
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+
+<h1>Modifier mes informations</h1>
+
+<form th:action="@{/profile/edit}" th:object="${editForm}" method="post">
+  <label>Prénom</label>
+  <input type="text" th:field="*{firstName}"/>
+
+  <label>Nom</label>
+  <input type="text" th:field="*{lastName}"/>
+
+  <label>Date de naissance</label>
+  <input type="date" th:field="*{birthDate}"/>
+
+  <label>Université</label>
+  <input type="text" th:field="*{university}"/>
+
+  <label>Email</label>
+  <input type="email" th:field="*{email}"/>
+
+  <label>Genre</label>
+  <select th:field="*{gender}">
+    <option value="">-- Sélectionner --</option>
+    <option value="MALE">Homme</option>
+    <option value="FEMALE">Femme</option>
+  </select>
+
+  <div class="buttons">
+    <button type="submit">Enregistrer les modifications</button>
+    <a th:href="@{/profile}" class="button-link">
+      <button type="button">Annuler</button>
+    </a>
+  </div>
+
+  <p th:if="${editError}" th:text="${editError}" class="error"></p>
+</form>
+
+</body>
+</html>

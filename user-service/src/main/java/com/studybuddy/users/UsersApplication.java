@@ -1,4 +1,3 @@
-
 package com.studybuddy.users;
 
 import org.springframework.boot.SpringApplication;
