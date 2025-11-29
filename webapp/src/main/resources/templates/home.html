@@ -14,11 +14,10 @@
             <a th:href="@{/users/manage}">Créer / Gérer Utilisateur</a>
         </li>
         <li>
-            <a th:href="@{/interactions}">Interactions (Quiz/Flashcards, etc.)</a>
+            <a th:href="${interactionsServiceUrl}">Interactions (Quiz/Flashcards, etc.)</a>
         </li>
         <li>
-            <a th:href="@{/logout}">Déconnexion</a>
-        </li>
+            <a th:href="@{/logout}">Déconnexion</a>        </li>
     </ul>
 
     </body>

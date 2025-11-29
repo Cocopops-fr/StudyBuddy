@@ -11,13 +11,11 @@
     <h2>Actions Disponibles</h2>
     <ul>
         <li>
-            <a th:href="@{/register}">Créer un nouveau compte</a>
+            <a th:href="${usersServiceUrl}">Créer un nouveau compte</a>
         </li>
         <li>
-            <a th:href="@{/login}">Se connecter</a>
-        </li>
-        <li>
-            <a th:href="@{/users/search}">Rechercher / Modifier un utilisateur</a>
+             <a th:href="${usersServiceUrl}">Gestion des profils (microservice utilisateurs)</a>
+             
         </li>
     </ul>
 
