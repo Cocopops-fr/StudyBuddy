@@ -3,7 +3,7 @@ package com.studybuddy.interactions.web;
 import com.studybuddy.interactions.service.InteractionService;
 import com.studybuddy.interactions.service.RandomProfileService;
 
-import jakarta.servlet.http.HttpSession;
+//import jakarta.servlet.http.HttpSession;
 
 import com.studybuddy.interactions.model.Profile;
 
@@ -30,7 +30,7 @@ public class ProfileUiController {
 
     @GetMapping("/")
     public String showRandomRedirect() {
-        return "redirect:/profile?userId=student-1";
+        return "redirect:/profile?userId=1";
     }
     
     
@@ -56,11 +56,14 @@ public class ProfileUiController {
     public String dislike(@RequestParam("id") String id, @RequestParam("userId") String userId) {
 
         // enregistrer le dislike
-        Profile p = randomProfileService.getById(id);
-        if (p != null) {
-            interactionService.dislike(userId, p.getStudentId());
-        }
+//        Profile p = randomProfileService.getById(id);
+//        if (p != null) {
+//            interactionService.dislike(userId, p.getStudentId());
+//        }
 
+        randomProfileService.getById(id)
+        .ifPresent(p -> interactionService.dislike(userId, p.getStudentId()));
+        
         // marquer le profil comme vu
         interactionService.markSeen(userId, id);
 
@@ -101,8 +104,8 @@ public class ProfileUiController {
     public String showMatches(@RequestParam("userId") String userId, Model model) {
         var matchIds = interactionService.getMatches(userId);
         var matches = matchIds.stream()
-                .map(id -> randomProfileService.getById(id))
-                .filter(p -> p != null)
+        		.map(randomProfileService::getById) //.map(id -> randomProfileService.getById(id))
+        		.flatMap(Optional::stream) //.filter(p -> p != null)
                 .toList();
 
         model.addAttribute("matches", matches);

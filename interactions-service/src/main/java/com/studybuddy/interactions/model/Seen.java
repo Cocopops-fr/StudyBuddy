@@ -1,13 +1,13 @@
 package com.studybuddy.interactions.model;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "seen")
+//@Entity
+//@Table(name = "seen")
 public class Seen {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //  @Id
+  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String viewerId;

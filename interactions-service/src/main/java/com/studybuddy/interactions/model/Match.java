@@ -1,13 +1,13 @@
 package com.studybuddy.interactions.model;
 
-import jakarta.persistence.*;
+// import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "matches")
+//@Entity
+//@Table(name = "matches")
 public class Match {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //  @Id
+   // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String student1Id;
@@ -27,5 +27,3 @@ public class Match {
     public LocalDateTime getCreatedAt() { return createdAt; }
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
-
-

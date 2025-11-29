@@ -1,13 +1,13 @@
 package com.studybuddy.interactions.model;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 
-@Entity  // ← Ajoute cette ligne !
-@Table(name = "profiles")  // ← Optionnel mais recommandé
+//@Entity  // ← Ajoute cette ligne !
+//@Table(name = "profiles")  // ← Optionnel mais recommandé
 public class Profile {
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+ //   @Id
+  //  @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String studentId;

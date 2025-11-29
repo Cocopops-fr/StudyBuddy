@@ -1,13 +1,13 @@
 package com.studybuddy.interactions.model;
 
-import jakarta.persistence.*;
+//import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity
-@Table(name = "dislikes")
+//@Entity
+//@Table(name = "dislikes")
 public class Dislike {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+  //  @Id
+  // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String dislikerId;

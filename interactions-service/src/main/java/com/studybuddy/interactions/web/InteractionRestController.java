@@ -2,6 +2,9 @@ package com.studybuddy.interactions.web;
 
 import com.studybuddy.interactions.service.InteractionService;
 import org.springframework.web.bind.annotation.*;
+import com.studybuddy.interactions.model.Profile;
+import org.springframework.http.ResponseEntity;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -14,11 +17,15 @@ public class InteractionRestController {
     }
 
     @PostMapping("/{sourceUserId}/like/{targetUserId}")
-    public void like(
+    public ResponseEntity<Profile> like(
             @PathVariable String sourceUserId,
             @PathVariable String targetUserId) {
-
-        interactionService.like(sourceUserId, targetUserId);
+        
+    	
+    	return interactionService.like(sourceUserId, targetUserId)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.accepted().build());
+      //  interactionService.like(sourceUserId, targetUserId);
     }
 
     @PostMapping("/{sourceUserId}/dislike/{targetUserId}")
