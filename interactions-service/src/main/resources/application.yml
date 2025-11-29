@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: interactions-service
+
+server:
+  port: 8082
+
+users:
+  service:
+    url: http://localhost:8081
