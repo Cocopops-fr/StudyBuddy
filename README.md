@@ -5,9 +5,7 @@ Tous les codes de chacun ont été complètement repris, sans changemet dans la 
 - Trois applications Spring Boot distinctes :
   - `interactions-service` (port 8082)
   - `user-service` (port 8081) :e embarque sa propre base H2 en mémoire et son initialisation de données = plus de mysql dont la config change sur nos différents ordis
-
   - `webapp` (port 8080) 
-
 
 
 ## Responsabilités par service
@@ -17,6 +15,14 @@ Tous les codes de chacun ont été complètement repris, sans changemet dans la 
 
 ## API REST (cibles) et contrats minimalistes
 Prendre en compte le code existant : certains contrôleurs répondent déjà sous `/api/**` (par exemple `user-service` expose actuellement `/api/users`). Les chemins ci-dessous décrivent la cible simple à stabiliser.
+
+### Rationalisation proposée
+- **Préfixe commun** : exposer toutes les API techniques sous `/api/**` afin d’aligner la cible avec le code actuel et d’éviter le mélange avec les routes MVC de la webapp.
+- **Nommage cohérent** : conserver `users` comme ressource principale côté `user-service` et `interactions` pour le service de matching (éviter `/api/users/{id}/like/{target}` qui matérialise une logique mais pas une ressource claire).
+- **Verbes dans le corps, pas dans l’URL** : préférer `POST /api/interactions/likes` avec un body `{likerId, likedId}` plutôt que des verbes dans le chemin. Les endpoints de lecture deviennent `GET /api/interactions/matches?userId=` et `GET /api/interactions/likes?userId=`.
+- **Contrats partagés** : utiliser le même `UserProfile` minimal (id, name, skills[], bio, university) dans les deux services pour limiter les conversions et faciliter la consommation par la webapp.
+
+> Migration progressive : commencer par ajouter les nouveaux chemins (`/api/users`, `/api/interactions/**`) en parallèle de l’existant, puis déprécier les URLs spécifiques une fois la webapp alignée.
 
 ### user-service
 - **GET `/users`** : liste paginable des profils.
@@ -64,7 +70,8 @@ Réponse type pour un match :
 - Ne stocke rien en local.
 - Consomme `user-service` et `interaction-service` pour afficher les profils, orchestrer les likes/matches et servir les vues Thymeleaf.
 
-  ###########################################
+
+###########################################
 
 ## Couplage actuel
 - **Pas d’appels inter-services** :
