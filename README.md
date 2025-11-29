@@ -4,9 +4,67 @@ Tous les codes de chacun ont été complètement repris, sans changemet dans la 
 ## Vue d’ensemble
 - Trois applications Spring Boot distinctes :
   - `interactions-service` (port 8082)
-  - `user-service` (port 8081)
-  - `webapp` (port 8080)
-- chaque service embarque sa propre base H2 en mémoire et son initialisation de données = plus de mysql dont la config change sur nos différents ordis
+  - `user-service` (port 8081) :e embarque sa propre base H2 en mémoire et son initialisation de données = plus de mysql dont la config change sur nos différents ordis
+
+  - `webapp` (port 8080) 
+
+
+
+## Responsabilités par service
+- **user-service** : stockage et exposition des profils (CRUD, recherche par compétence) ; gère l’authentification côté utilisateurs.
+- **interaction-service** : enregistre likes/dislikes et calcule les matches entre utilisateurs.
+- **webapp** : front-end sans persistance qui consomme les deux services via `RestTemplate` ou `WebClient`.
+
+## API REST (cibles) et contrats minimalistes
+Prendre en compte le code existant : certains contrôleurs répondent déjà sous `/api/**` (par exemple `user-service` expose actuellement `/api/users`). Les chemins ci-dessous décrivent la cible simple à stabiliser.
+
+### user-service
+- **GET `/users`** : liste paginable des profils.
+- **GET `/users/{id}`** : détail d’un profil.
+- **POST `/users`** : création d’un profil.
+- **PUT `/users/{id}`** : mise à jour d’un profil.
+- **DELETE `/users/{id}`** : suppression.
+- **GET `/users/search?skill=...`** : recherche par compétence.
+
+Contrat minimaliste pour un profil utilisateur (requête/réponse) :
+```json
+{
+  "id": "42",
+  "name": "Ada Lovelace",
+  "skills": ["java", "spring"],
+  "bio": "Développeuse full-stack",
+  "university": "Université de Lyon"
+}
+```
+
+> Implémentation actuelle : `UserRestController` répond sur `/api/users` avec `GET /api/users` et `GET /api/users/{id}` en exposant un DTO `UserProfileDto` minimal.
+
+### interaction-service
+- **POST `/interactions/like`** : enregistre un like. Payload JSON :
+  ```json
+  { "likerId": "123", "likedId": "456" }
+  ```
+- **GET `/interactions/matches?userId=...`** : retourne les matches du `userId` fourni.
+
+Réponse type pour un match :
+```json
+[
+  {
+    "id": "456",
+    "name": "Grace Hopper",
+    "skills": ["cloud", "kubernetes"],
+    "bio": "Site Reliability Engineer"
+  }
+]
+```
+
+> Implémentation actuelle : `InteractionRestController` écoute sous `/api/users/{sourceUserId}/like/{targetUserId}`, `/api/users/{userId}/likes` et `/api/users/{userId}/matches`.
+
+### webapp
+- Ne stocke rien en local.
+- Consomme `user-service` et `interaction-service` pour afficher les profils, orchestrer les likes/matches et servir les vues Thymeleaf.
+
+  ###########################################
 
 ## Couplage actuel
 - **Pas d’appels inter-services** :
