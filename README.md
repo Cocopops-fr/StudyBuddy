@@ -1,4 +1,5 @@
 # StudyBuddy – état des lieux
+Tous les codes de chacun ont été complètement repris, sans changemet dans la logique. Seule la structure, la dépendance, l'organisation en projet, les bases de données... bref tout ce qu'il faut pour qu'on puisse faire 1: des micro services qui communiquent (pas le navigateur qui change de lien), 2: un modèle d'acteurs (dans un second temps).
 
 ## Vue d’ensemble
 - Trois applications Spring Boot distinctes :
