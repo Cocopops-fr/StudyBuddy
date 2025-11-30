@@ -31,11 +31,13 @@ public class MainController {
      */
     @GetMapping({"/", "/home"})
     public String homePage(Model model) {
-        
+
         model.addAttribute("interactionsServiceUrl", interactionsServiceUrl);
+        model.addAttribute("usersServiceUrl", usersServiceUrl); // 👈 ajouter ça
 
         return "home";
     }
+
 
     /**
      * Affiche la page pour gérer les utilisateurs.

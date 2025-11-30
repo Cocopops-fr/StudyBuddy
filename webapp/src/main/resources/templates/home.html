@@ -5,19 +5,18 @@
     <title>Study Buddy - Accueil</title>
 </head>
 <body>
-    <h1>Bienvenue dans Study Buddy</h1>
-    <p>Cette application agit comme une passerelle vers vos microservices (Utilisateurs et Interactions).</p>
+    <h1>Study Buddy</h1>
+    <p>Trouvez votre partenaire de révision </p>
 
     <h2>Menu Principal</h2>
     <ul>
         <li>
-            <a th:href="@{/users/manage}">Créer / Gérer Utilisateur</a>
+            <a th:href="${usersServiceUrl}">Créer / Gérer Utilisateur</a>
         </li>
         <li>
-            <a th:href="${interactionsServiceUrl}">Interactions (Quiz/Flashcards, etc.)</a>
+            <a th:href="${interactionsServiceUrl}"> Accéder à l'interface de matching </a>
         </li>
-        <li>
-            <a th:href="@{/logout}">Déconnexion</a>        </li>
+
     </ul>
 
     </body>

@@ -25,6 +25,6 @@ public record EditProfileForm(
         String email,
 
         @NotBlank
-        @Pattern(regexp = "MALE|FEMALE", message = "Genre invalide")
+        @Pattern(regexp = "MALE|FEMALE|AUTRE", message = "Genre invalide")
         String gender
 ) {}

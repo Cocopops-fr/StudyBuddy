@@ -70,10 +70,23 @@ public class DataInitializer implements CommandLineRunner {
         u5.setGender("MALE");
         u5.setPasswordHash(BCrypt.hashpw("leo", BCrypt.gensalt()));
 
+
+        UserEntity u6 = new UserEntity();
+        u6.setFirstName("Emi");
+        u6.setLastName("ROg");
+        u6.setBirthDate(LocalDate.of(2000, 1, 1));
+        u6.setUniversity("CY tek");
+        u6.setEmail("emi@cyu.com");
+        u6.setGender("MALE");
+        u6.setPasswordHash(BCrypt.hashpw("123456", BCrypt.gensalt()));
+
+
+
         userRepository.save(u1);
         userRepository.save(u2);
         userRepository.save(u3);
         userRepository.save(u4);
         userRepository.save(u5);
+        userRepository.save(u6);
     }
 }

@@ -8,7 +8,7 @@
 <h2>Study Buddy</h2>
 
 <div th:if="${noProfiles}">
-  <h2>Plus de profils disponibles 🎉</h2>
+  <h2> Tous les étudiant·e·s vous ont été proposé·e·s. </h2>
 </div>
 
 <div th:unless="${noProfiles}">
@@ -33,6 +33,19 @@
         <button type="submit">J'aime pas</button>
     </form>
 </div>
+
+
+<form th:action="@{/matches}" method="get">
+    <input type="hidden" name="userId" th:value="${currentStudent}">
+    <button type="submit">Voir mes matchs </button>
+</form>
+
+
+
+<a th:href="@{http://localhost:8081/}">
+    Mon Profil
+</a>
+
 
 
 <div th:if="${profile == null}">

@@ -136,7 +136,15 @@ public class AuthRestController {
                     userEntity.getCreatedAt()
             );
             model.addAttribute("user", dto);
+
+            // On passe l'ID au modèle
+            model.addAttribute("currentStudentId", userEntity.getId());
+
+            // URL dynamique vers le microservice interactions
+            String matchesUrl = "http://localhost:8082/profile?userId=" + userEntity.getId();
+            model.addAttribute("matchesUrl", matchesUrl);
         });
+
 
         return "profile";
     }
