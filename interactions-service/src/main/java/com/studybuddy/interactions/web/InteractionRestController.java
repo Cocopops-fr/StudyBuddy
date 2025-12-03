@@ -10,12 +10,6 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.studybuddy.interactions.actors.ActorMessage;
 import com.studybuddy.interactions.actors.ActorSystem;
 import com.studybuddy.interactions.model.Profile;
-
-import java.time.Duration;
-import java.util.Map;
-import java.util.concurrent.CompletableFuture;
-import java.util.concurrent.TimeoutException;
-
 import org.springframework.http.ResponseEntity;
 
 
@@ -105,7 +99,6 @@ public class InteractionRestController {
         return ResponseEntity.accepted().build();
     }
  */   
-    /*
     @PostMapping("/{sourceUserId}/like/{targetUserId}")
     public ResponseEntity<String> like(@PathVariable String sourceUserId,
                                        @PathVariable String targetUserId) {
@@ -118,27 +111,7 @@ public class InteractionRestController {
 
         return ResponseEntity.accepted().body("Message sent to actor");
     }
-*/
-    
-    
-    @PostMapping("/{sourceUserId}/like/{targetUserId}/ask")
-    public ResponseEntity<?> likeAsk(@PathVariable String sourceUserId,
-                                     @PathVariable String targetUserId) {
 
-        ObjectNode payload = JsonNodeFactory.instance.objectNode();
-        payload.put("likerId", sourceUserId);
-        payload.put("likedId", targetUserId);
-        ActorMessage msg = new ActorMessage("Like", payload, "http-rest");
 
-        try {
-            CompletableFuture<ActorMessage> future = actorSystem.ask("interaction-actor", msg, Duration.ofSeconds(5));
-            ActorMessage response = future.get(); // ou use thenApply / CompletableFuture async handling
-            // lire response.payload
-            boolean matched = response.payload.get("matched").asBoolean();
-            return ResponseEntity.ok(Map.of("matched", matched, "payload", response.payload.toString()));
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Error: " + e.getMessage());
-        }
-    }
 
 }

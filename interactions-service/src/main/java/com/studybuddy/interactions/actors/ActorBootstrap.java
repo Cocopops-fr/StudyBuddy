@@ -15,18 +15,10 @@ public class ActorBootstrap {
         this.actorSystem = actorSystem;
         this.interactionService = interactionService;
     }
-    /*
+
     @PostConstruct
     public void init() {
         // registre un acteur nommé "interaction-actor"
         actorSystem.createLocal("interaction-actor", () -> new InteractionActor("interaction-actor", interactionService));
     }
-*/
-
-        @PostConstruct
-        public void init() {
-            actorSystem.createLocal("interaction-actor", () -> new InteractionActor("interaction-actor", interactionService, actorSystem));
-        }
-    }
-
-
+}

@@ -23,7 +23,6 @@ public class LocalActorDispatcher {
         return false;
     }
 
-
     public boolean exists(String name) {
         return registry.containsKey(name);
     }
