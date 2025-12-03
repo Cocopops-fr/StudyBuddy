@@ -2,6 +2,7 @@ package com.studybuddy.interactions.web;
 
 import com.studybuddy.interactions.service.InteractionService;
 import com.studybuddy.interactions.service.RandomProfileService;
+import com.studybuddy.interactions.service.UserServiceClient;
 
 //import jakarta.servlet.http.HttpSession;
 
@@ -21,11 +22,14 @@ public class ProfileUiController {
 
     private final RandomProfileService randomProfileService;
     private final InteractionService interactionService;
+    public final UserServiceClient userServiceClient;
+
 
     public ProfileUiController(RandomProfileService randomProfileService,
-                               InteractionService interactionService) {
+                               InteractionService interactionService, UserServiceClient userServiceClient) {
         this.randomProfileService = randomProfileService;
         this.interactionService = interactionService;
+		this.userServiceClient = userServiceClient;
     }
 
     @GetMapping("/")
@@ -69,10 +73,41 @@ public class ProfileUiController {
 
         return "redirect:/profile?userId=" + userId;
     }
+    
+    @PostMapping("/like")
+    public String likeProfile(@RequestParam("id") String id,
+                              @RequestParam("userId") String userId) {
 
+        // 1. Récupérer le profil
+        userServiceClient.getProfileById(id).ifPresent(profile -> {
+            // 2. Enregistrer le like côté interactions-service
+            interactionService.like(userId, profile.getStudentId());
+            // 3. Marquer comme vu
+            interactionService.markSeen(userId, profile.getStudentId());
+        });
 
+        // 4. Rediriger vers le prochain profil
+        return "redirect:/profile?userId=" + userId;
+    }
+/*
 
     @PostMapping("/like")
+    public String likeProfile(@RequestParam("id") String id,
+                              @RequestParam("userId") String userId,
+                              Model model) {
+
+        userServiceClient.getProfileById(id).ifPresent(profile -> {
+            interactionService.like(userId, profile.getStudentId());
+            interactionService.markSeen(userId, profile.getStudentId());
+        });
+
+        Optional<Profile> next = randomProfileService.getRandomProfileExceptSeen(userId);
+        return next.map(p -> "redirect:/profile?userId=" + userId)
+                   .orElse("noProfiles");  // page “plus de profils”
+    }
+
+*/
+  /*  @PostMapping("/like")
     public String likeProfile(@RequestParam("id") String id,
                               @RequestParam("userId") String userId,
                               Model model) {
@@ -98,7 +133,7 @@ public class ProfileUiController {
         return "redirect:/profile?userId=" + userId; // ne recharge plus rien d'autre avant
 
     }
-
+*/
 
     @GetMapping("/matches")
     public String showMatches(@RequestParam("userId") String userId, Model model) {
@@ -112,5 +147,5 @@ public class ProfileUiController {
         model.addAttribute("currentStudent", userId);
         return "matches";
     }
-}
+    }
 
