@@ -21,23 +21,11 @@
     <p><strong>Skills à travailler:</strong> <span th:text="${profile.skills}"></span></p>
     <p><strong>Campus:</strong> <span th:text="${profile.campus}"></span></p>
 
-
-<!-- <form th:action="@{/api/users/{userId}/like/{profileId}(userId=${currentStudent},profileId=${profile.studentId})}" method="post" style="display:inline">
-    <button type="submit">J'aime</button>
-</form> -->
     <form th:action="@{/like}" method="post" style="display:inline">
         <input type="hidden" name="userId" th:value="${currentStudent}" />
         <input type="hidden" name="id" th:value="${profile.studentId}"/>
         <button type="submit">J'aime</button>
     </form>
-
- 
- 
- <!--<form th:action="@{/api/users/{userId}/dislike/{profileId}(userId=${currentStudent},profileId=${profile.studentId})}" method="post" style="display:inline">
-    <button type="submit">J'aime pas</button>
-</form>
--->
-
 
     <form th:action="@{/dislike}" method="post" style="display:inline">
         <input type="hidden" name="userId" th:value="${currentStudent}" />
@@ -45,14 +33,6 @@
         <button type="submit">J'aime pas</button>
     </form>
 </div>
- 
- 
-  <!-- 
- <form th:action="@{/api/users/{userId}/matches(userId=${currentStudent})}" method="get">
-    <button type="submit">Voir mes matchs</button>
-</form>
-  -->
- 
 
 
 <form th:action="@{/matches}" method="get">
@@ -60,10 +40,7 @@
     <button type="submit">Voir mes matchs </button>
 </form>
 
-  <!-- 
- <a th:href="@{/api/users/profile/{id}(id=${currentStudent})}">Mon Profil</a>
- 
- -->
+
 
 <a th:href="@{http://localhost:8081/}">
     Mon Profil
