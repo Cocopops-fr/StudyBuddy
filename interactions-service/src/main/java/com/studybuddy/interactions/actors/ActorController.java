@@ -26,10 +26,19 @@ public class ActorController {
         }
     }
     
-    
+    /*
     @GetMapping("/{actorName}")
     public ResponseEntity<String> getActorStatus(@PathVariable String actorName) {
         if (!actorSystem.actorOf(actorName).equals(null)) {
+            return ResponseEntity.ok("Actor exists: " + actorName);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+*/
+    @GetMapping("/{actorName}")
+    public ResponseEntity<String> getActorStatus(@PathVariable String actorName) {
+        if (actorSystem.exists(actorName)) {  // <-- USE dispatcher.exists
             return ResponseEntity.ok("Actor exists: " + actorName);
         } else {
             return ResponseEntity.notFound().build();
